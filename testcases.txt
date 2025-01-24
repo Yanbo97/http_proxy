@@ -1,0 +1,63 @@
+For GET request that can be cached: http://example.com
+Log:
+[info]: 17: HTTP Request: GET http://example.com/ HTTP/1.1from 192.168.65.1@ [2024-03-01 23:39:16.587961]
+[info]: 17: not in cache [2024-03-01 23:39:16.588624]
+[info]: 17: Requesting "HTTP Request: GET http://example.com/ HTTP/1.1" from example.com [2024-03-01 23:39:16.588647]
+[info]: 17: NOTE Cache-Control max-age: 604800 [2024-03-01 23:39:16.684718]
+[info]: 17: Stored in cache: http://example.com/ [2024-03-01 23:39:16.684790]
+[info]: 17: Received "HTTP/1.1 200 OK" from example.com [2024-03-01 23:39:16.684807]
+[info]: 17: Response served from origin server [2024-03-01 23:39:16.685298]
+[info]: 17: NOTE Cache-Control max-age: 604800 [2024-03-01 23:39:16.685542]
+[info]: 17: Stored in cache: http://example.com/ [2024-03-01 23:39:16.685559]
+[info]: 18: HTTP Request: GET http://example.com/ HTTP/1.1from 192.168.65.1@ [2024-03-01 23:39:37.388431]
+[info]: 18: in cache, valid [2024-03-01 23:39:37.388929]
+[info]: 18: Received "HTTP/1.1 200 OK" from example.com [2024-03-01 23:39:37.389050]
+[info]: 18: Response served from cache [2024-03-01 23:39:37.389348]
+=================================================================================================================================
+For POST request: http://httpbin.org/forms/post
+Log: 
+[info]: 21: HTTP Request: POST http://httpbin.org/post HTTP/1.1from 192.168.65.1@ [2024-03-01 23:42:24.086763]
+[info]: 21: Requesting "HTTP Request: POST http://httpbin.org/post HTTP/1.1" from httpbin.org [2024-03-01 23:42:24.086876]
+[info]: 21: Not cacheable because both max-age and Expires are missing.
+ [2024-03-01 23:42:24.179836]
+[info]: 21: Response not stored in cache due to cacheability rules [2024-03-01 23:42:24.179899]
+[info]: 21: Received "HTTP/1.1 200 OK" from httpbin.org [2024-03-01 23:42:24.179915]
+[info]: 21: Response served from origin server [2024-03-01 23:42:24.180273]
+=================================================================================================================================
+For CONNECT request: https://amazon.com
+Log: (Depends on Browser used, the example is using Chrome)
+[info]: 28: HTTP Request: CONNECT images-na.ssl-images-amazon.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:16.608363]
+[info]: 29: HTTP Request: CONNECT c.amazon-adsystem.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:16.734210]
+[info]: 30: HTTP Request: CONNECT s.amazon-adsystem.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:16.734237]
+[info]: 31: HTTP Request: CONNECT s.amazon-adsystem.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:16.734298]
+[info]: 32: HTTP Request: CONNECT s.amazon-adsystem.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:16.734508]
+[info]: 33: HTTP Request: CONNECT m.media-amazon.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:16.889808]
+[info]: 34: HTTP Request: CONNECT aax-us-east-retail-direct.amazon.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:16.971402]
+[info]: 36: HTTP Request: CONNECT images-na.ssl-images-amazon.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:17.174741]
+[info]: 35: HTTP Request: CONNECT images-na.ssl-images-amazon.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:17.174741]
+[info]: 37: HTTP Request: CONNECT images-na.ssl-images-amazon.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:17.175021]
+[info]: 38: HTTP Request: CONNECT images-na.ssl-images-amazon.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:17.175056]
+[info]: 39: HTTP Request: CONNECT images-na.ssl-images-amazon.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:17.175245]
+[info]: 40: HTTP Request: CONNECT m.media-amazon.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:17.194313]
+[info]: 41: HTTP Request: CONNECT m.media-amazon.com:443 HTTP/1.1from 192.168.65.1@ [2024-03-01 23:44:17.195781]
+[info]: 28: Tunnel Established
+ [2024-03-01 23:44:17.744176]
+[info]: 28: starting Relay
+ [2024-03-01 23:44:17.744267]
+[info]: 29: Tunnel Established
+=================================================================================================================================
+Test for chunked transfer encoding:http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
+Log: 
+[info]: 185: HTTP Request: GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1from 192.168.65.1@ [2024-03-01 23:47:08.432623]
+[info]: 185: not in cache [2024-03-01 23:47:08.432816]
+[info]: 185: Requesting "HTTP Request: GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com [2024-03-01 23:47:08.432831]
+[info]: 185: NOTE Cache-Control no-store: True [2024-03-01 23:47:12.400833]
+[info]: 185: Not cacheable because both max-age and Expires are missing.
+ [2024-03-01 23:47:12.400915]
+[info]: 185: Response not stored in cache due to cacheability rules [2024-03-01 23:47:12.400923]
+[info]: 185: Received "HTTP/1.1 200 OK" from www.httpwatch.com [2024-03-01 23:47:12.401002]
+[info]: 185: Response served from origin server [2024-03-01 23:47:12.401731]
+[info]: 185: NOTE Cache-Control no-store: True [2024-03-01 23:47:12.402003]
+[info]: 185: Not cacheable because both max-age and Expires are missing.
+ [2024-03-01 23:47:12.402019]
+[info]: 185: Response not stored in cache due to cacheability rules [2024-03-01 23:47:12.402024]

@@ -1,0 +1,14 @@
+1. When building cache, we use std::string to store our body of the response, it works fine when the contents of the response is not large, but the error occurs when the request is served from cache with large and complicate contents, so we decide to use boost::beast::http::response<boost::beast::http::dynamic_body> response and store the whole response in cache instead of parsing it and only storing the body into cache.
+2. At beginning of the project, we are not familiar with cache, we just stored everything into cache for a GET request. After conducting some researches, we noticed that we need to consider the directives from the response, so we add parseCacheControl function to handle these directives in different situations. For example, no_store indicates the response cannot be is cacheable.
+3. The original revalidation process is naive, when the cache is expired by max_age or expires, the get_request function will just make a new GET request to the server and cache it. After researching, we noticed that we need to consider E-Tag and Last-Modified directives when we perform revalidation process. If the content is still 'fresh', we don't need to make a new request again and then we serve from the cache. But we are still confused about handling the expiration time for revalidation with original content in cache, we just update the expiration time based on our understandings.
+4. For the expiration time, firstly, we think we need to set it manually by using ttl (time to live) of a cached response. However, we noticed that max_age and expires in http response is used to control the lifecycle of the cache, then we update our update expiration time logic to achieve the correct lifecycle control of cached response.
+5. Overflow in either the request or response buffer.
+6. Client disconnects before receiving the response.
+7. Incorrectly formatted request.
+8. Request utilizes a method not supported by the server.
+9. Connection rejected by the remote server.
+10. An asynchronous function fails to complete.
+11. Implementation of an unsupported protocol (such as WebSocket).
+12. Memory leak issues.
+13. An unforeseen error occurred.
+14. Cross-platform compatibility (Boost is intended to be cross-platform, but its compatibility with Windows has not been verified).
